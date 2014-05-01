@@ -1,0 +1,14 @@
+{
+  "name": "Slick Wallet",
+  "main": "index.html",
+  "window": 
+  {
+    "title": "Slick Wallet",
+    "toolbar": true,
+    "frame": true,
+    "width": 455,
+    "height": 515,
+    "min_width": 455,
+    "min_height": 515
+   }
+}

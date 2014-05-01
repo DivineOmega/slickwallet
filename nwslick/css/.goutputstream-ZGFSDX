@@ -1,0 +1,26 @@
+body
+{
+	-webkit-user-select: none;
+}
+
+#main_address
+{
+	-webkit-user-select: text !important;
+	cursor: text !important;
+}
+
+#balance
+{
+	-webkit-user-select: text !important;
+	cursor: text !important;
+}
+
+*
+{
+	cursor: default !important;
+}
+
+input
+{
+	cursor: text !important;
+}

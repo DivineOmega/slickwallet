@@ -1,0 +1,108 @@
+var satoshisInABitcoin = 100000000;
+
+var availableBalance;
+var estimatedBalance;
+var incomingBitcoins;
+var mainAddress;
+var qrcode = new QRCode('main_address_qrcode');
+var sendingStatus;
+
+loopUpdateBalance();
+sendCommand('get_main_address');
+
+$('#send_bitcoins_button').click(function() 
+{
+	var command = 'send_bitcoins ';
+	command += $('#send_to_address').val();
+	command += ' ';
+	command += $('#amount_to_send').val()*satoshisInABitcoin;
+	
+	$('#send_to_address').val('')
+	$('#amount_to_send').val('')
+	
+	sendingStatus = 'Sending bitcoins...';
+	guiUpdate();
+	
+	sendCommand(command);
+	
+});
+
+function guiUpdate()
+{
+	if (typeof availableBalance!='undefined')
+	{
+		$('#balance').html(availableBalance.toFixed(4));
+		$('#balance').attr('title', availableBalance);
+	}
+	
+	incomingBitcoins = (estimatedBalance-availableBalance);
+	if (incomingBitcoins>0) $('#incoming').html('(+ ' + incomingBitcoins + ' incoming)');
+	else $('#incoming').html('');
+	
+	$('#main_address').html(mainAddress);
+	if (typeof mainAddress!='undefined') qrcode.makeCode(mainAddress);
+	
+	if(sendingStatus!='')
+	{
+		$('#sending_status').html(sendingStatus);
+		$('#sending_status')
+	}
+}
+
+function loopUpdateBalance()
+{
+	sendCommand('get_available_balance');
+	sendCommand('get_estimated_balance');
+	setTimeout('loopUpdateBalance();', 2500);
+}
+
+function sendCommand(command)
+{
+	var net = require('net');
+
+	var HOST = 'localhost';
+	var PORT = 19912;
+
+	var client = new net.Socket();
+	client.connect(PORT, HOST, function() 
+	{
+		console.log('Connected to: ' + HOST + ':' + PORT);
+	});
+	
+	client.on('data', function(data) 
+	{
+		if (data=='jslick:')
+		{
+			console.log('Sending command: '+command);
+			client.write(command+'\n');
+		}
+		else
+		{
+			console.log('Response received: ' + data);
+			client.destroy();
+			
+			if (command=='get_available_balance')
+			{
+				availableBalance = (data.toString()/satoshisInABitcoin);
+			}
+			else if (command=='get_estimated_balance')
+			{
+				estimatedBalance =  (data.toString()/satoshisInABitcoin);
+			}
+			else if (command=='get_main_address')
+			{
+				mainAddress = data.toString();
+			}
+			else if (command=='send_bitcoins')
+			{
+				sendingStatus = data.toString();
+			}
+			
+			guiUpdate();
+		}
+	});
+	
+	client.on('close', function() {
+		console.log('Connection closed');
+	});
+}
