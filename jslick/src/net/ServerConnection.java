@@ -18,6 +18,8 @@ import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
+import data.BitcoinAverage;
+
 public class ServerConnection implements Runnable
 {
 	Socket socket;
@@ -126,6 +128,16 @@ public class ServerConnection implements Runnable
 			else if(command.equalsIgnoreCase("ping"))
 			{
 				out.print("pong");
+			}
+			else if(command.toLowerCase().startsWith("get_bitcoin_value"))
+			{
+				String[] commandParts = command.split(" ");
+				
+				String currency = commandParts[1];
+				
+				Double bitcoinValue = Main.bitcoinAverage.getValue(currency);
+				
+				out.print(bitcoinValue);
 			}
 			else
 			{

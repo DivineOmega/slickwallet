@@ -1,8 +1,10 @@
 var satoshisInABitcoin = 100000000;
+var fiatCurrency = 'GBP';
 
 var availableBalance;
 var estimatedBalance;
 var incomingBitcoins;
+var fiatValue = 0.00;
 var mainAddress;
 var qrcode = new QRCode('main_address_qrcode');
 var sendingStatus;
@@ -10,8 +12,8 @@ var sendingStatus;
 var gui = require('nw.gui');
 var win = gui.Window.get();
 
-
 loopUpdateBalance();
+loopUpdateFiatValue();
 sendCommand('get_main_address');
 
 $('#qr_code_reader_button').click(function() 
@@ -78,6 +80,20 @@ function guiUpdate()
 		$('#incoming').html('');
 	}
 	
+	if (typeof fiatValue!='undefined')
+	{
+		if (fiatValue>0)
+		{
+			$('#fiat_value').html(availableBalance*fiatValue);
+			$('#fiat_currency').html(fiatCurrency);
+		}
+		else
+		{
+			$('#fiat_value').html('');
+			$('#fiat_currency').html('');
+		}
+	}
+	
 	if (typeof mainAddress!='undefined')
 	{
 		$('#main_address').html(mainAddress);
@@ -115,6 +131,12 @@ function loopUpdateBalance()
 	sendCommand('get_available_balance');
 	sendCommand('get_estimated_balance');
 	setTimeout(function(){ loopUpdateBalance(); }, 2500);
+}
+
+function loopUpdateFiatValue()
+{
+	sendCommand('get_bitcoin_value '+fiatCurrency);
+	setTimeout(function(){ loopUpdateFiatValue(); }, 1000*60*1);
 }
 
 function sendCommand(command)
@@ -165,6 +187,10 @@ function sendCommand(command)
 			else if (command=='get_estimated_balance')
 			{
 				estimatedBalance =  (data.toString()/satoshisInABitcoin);
+			}
+			else if (command.startsWith('get_bitcoin_value'))
+			{
+				fiatValue = data.toString();
 			}
 			else if (command=='get_main_address')
 			{

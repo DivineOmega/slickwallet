@@ -21,19 +21,27 @@ import com.google.bitcoin.kits.WalletAppKit;
 import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.utils.BriefLogFormatter;
 
+import data.BitcoinAverage;
+
 public class Main 
 {
 	public static WalletAppKit kit;
 	public static Address mainAddress;
 	public static Server server;
 	public static NetworkParameters params;
+	public static BitcoinAverage bitcoinAverage;
 
 	public static void main(String[] args) throws InterruptedException 
 	{
-		// Get main wallet address
+		// Start server thread
 		server = new Server(19912);
-		Thread t = new Thread(server);
-	    t.start();
+		Thread serverThread = new Thread(server);
+		serverThread.start();
+	    
+	    // Start BitcoinAverage worker
+	    bitcoinAverage = new BitcoinAverage();
+	    Thread bitcoinAverageThread = new Thread(bitcoinAverage);
+	    bitcoinAverageThread.start();
 		
 		// Logger setup
 		BriefLogFormatter.init();

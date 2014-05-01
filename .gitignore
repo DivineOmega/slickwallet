@@ -1,1 +1,6 @@
 *.class
+*.spvchain
+*.wallet
+*.classpath
+*.project
+*.tmp

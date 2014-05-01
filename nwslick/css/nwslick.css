@@ -15,6 +15,12 @@ body
 	cursor: text !important;
 }
 
+#fiat_value
+{
+	-webkit-user-select: text !important;
+	cursor: text !important;
+}
+
 *
 {
 	cursor: default !important;
