@@ -7,16 +7,20 @@ Slick Wallet is split into two main components. Start-up scripts are also includ
 
 These components are described in more detail below.
 
-## GUI
+## nwslick (GUI)
 
 nwslick, a node-webkit package that delivers the GUI and controls for all application functions.
+
+### Requirements
+
+nwslick requires at least node-webkit version 0.9.2. Tested with the Windows and Linux node-webkit binaries.
 
 ### Styling
 
 - Use Bootstrap - http://getbootstrap.com
 - Make UI as simplistic as possible
 
-## Backend
+## jslick (Backend)
 
 jslick, a Java program powered by bitcoinj is used to handle Bitcoin wallet and networking functions.
 
