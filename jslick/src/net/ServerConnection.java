@@ -18,8 +18,6 @@ import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
-import data.BitcoinAverage;
-
 public class ServerConnection implements Runnable
 {
 	Socket socket;
