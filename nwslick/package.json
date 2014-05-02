@@ -4,7 +4,8 @@
   "window": 
   {
     "title": "Slick Wallet",
-    "toolbar": true,
+    "icon": "images/slick_wallet_logo.png",
+    "toolbar": false,
     "frame": true,
     "width": 455,
     "height": 515,

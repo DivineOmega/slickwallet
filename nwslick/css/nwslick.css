@@ -30,3 +30,13 @@ input
 {
 	cursor: text !important;
 }
+
+#slick_wallet_logo
+{
+	height: 40px;
+}
+
+#main_address_qrcode img
+{
+	height: 224px;
+}
