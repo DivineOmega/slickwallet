@@ -40,3 +40,8 @@ input
 {
 	height: 224px;
 }
+
+img
+{
+	pointer-events: none
+}
