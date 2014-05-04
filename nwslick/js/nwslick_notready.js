@@ -19,7 +19,7 @@ function checkIfReady()
 	
 	client.connect(PORT, HOST, function() 
 	{
-		console.log('Connected to: ' + HOST + ':' + PORT);
+		if (console!=null) console.log('Connected to: ' + HOST + ':' + PORT);
 	});
 	
 	client.on('data', function(data) 
