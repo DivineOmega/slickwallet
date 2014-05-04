@@ -90,7 +90,7 @@ function guiUpdate()
 	{
 		if (fiatValue>0)
 		{
-			$('#fiat_value').html(availableBalance*fiatValue);
+			$('#fiat_value').html((availableBalance*fiatValue).toFixed(2));
 			$('#fiat_currency').html(localStorage.fiatCurrency);
 		}
 		else
