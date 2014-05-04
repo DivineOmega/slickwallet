@@ -46,6 +46,7 @@ public class ServerConnection implements Runnable
 			
 			if (command.equalsIgnoreCase("shutdown"))
 			{
+				System.out.println("Shutting down due to command received.");
 				System.exit(0);
 			}
 			else if (Main.server.ready==false)
