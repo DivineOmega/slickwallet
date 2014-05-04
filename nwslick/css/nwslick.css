@@ -3,6 +3,11 @@ body
 	-webkit-user-select: none;
 }
 
+.navbar-brand
+{
+	min-height: 65px;
+}
+
 #main_address
 {
 	-webkit-user-select: text !important;
