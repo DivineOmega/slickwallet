@@ -1,10 +1,22 @@
 
+$('#cancel_button').click(function() 
+{
+	window.location = 'index.html#send_bitcoins_tab';
+});
+
 $('#reader').html5_qrcode(
 	function(data)
 	{
 		var bitcoin_prefix = 'bitcoin:';
 		
 		if (data.startsWith(bitcoin_prefix)) data = data.substring(bitcoin_prefix.length);
+		
+		var qMarkPos = data.indexOf('?');
+		
+		if (qMarkPos!=-1)
+		{
+			data = data.substring(0, qMarkPos);
+		}
 		
 		window.location = 'index.html#send_bitcoins_tab?send_to_address='+data;
 	},
