@@ -26,10 +26,11 @@
 		<ul class="nav nav-tabs" id="main_tabs">
 			<li class="active"><a href="#main_address_tab" data-toggle="tab">My Bitcoin address</a></li>
 			<li><a href="#send_bitcoins_tab" data-toggle="tab">Send bitcoins</a></li>
+			<li><a href="#settings_tab" data-toggle="tab">Settings</a></li>
 		</ul>
 	</nav>
 		
-	<div class="tab-content" style="padding: 30px;">
+	<div class="tab-content" style="padding-left: 30px; padding-right: 30px;">
 		
 		<div class="tab-pane active" id="main_address_tab">
 			
@@ -63,6 +64,21 @@
 			</div>
 			
 			 <button type="submit" class="btn btn-default" id="send_bitcoins_button">Send</button>
+			
+		</div>
+		
+		<div class="tab-pane" id="settings_tab">
+			
+			<p>Here you can change the settings for Slick Wallet.</p>
+			
+			<div class="form-group">
+				<label for="fiat_currency_setting">Other currency to show: </label>
+				<select id="fiat_currency_setting" class="form-control"> 
+					<option value="GBP">Great British Pounds (GBP)</option>
+					<option value="USD">United States Dollars (USD)</option>
+					<option value="EUR">Euros (EUR)</option>
+				</select>
+			</div>
 			
 		</div>
 		

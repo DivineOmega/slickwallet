@@ -1,5 +1,7 @@
 var satoshisInABitcoin = 100000000;
-var fiatCurrency = 'GBP';
+
+if (localStorage.fiatCurrency==undefined) localStorage.setItem('fiatCurrency', 'GBP');
+$('#fiat_currency_setting').val(localStorage.fiatCurrency);
 
 var availableBalance;
 var estimatedBalance;
@@ -15,6 +17,12 @@ var win = gui.Window.get();
 loopUpdateBalance();
 loopUpdateFiatValue();
 sendCommand('get_main_address');
+
+$('#fiat_currency_setting').change(function() 
+{
+	localStorage.setItem('fiatCurrency', $('#fiat_currency_setting').val());
+	sendCommand('get_bitcoin_value '+localStorage.fiatCurrency);
+});
 
 $('#qr_code_reader_button').click(function() 
 {
@@ -85,7 +93,7 @@ function guiUpdate()
 		if (fiatValue>0)
 		{
 			$('#fiat_value').html(availableBalance*fiatValue);
-			$('#fiat_currency').html(fiatCurrency);
+			$('#fiat_currency').html(localStorage.fiatCurrency);
 		}
 		else
 		{
@@ -135,7 +143,7 @@ function loopUpdateBalance()
 
 function loopUpdateFiatValue()
 {
-	sendCommand('get_bitcoin_value '+fiatCurrency);
+	sendCommand('get_bitcoin_value '+localStorage.fiatCurrency);
 	setTimeout(function(){ loopUpdateFiatValue(); }, 1000*60*1);
 }
 
