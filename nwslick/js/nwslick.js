@@ -59,9 +59,7 @@ $('#send_bitcoins_button').click(function()
 	command += ' ';
 	command += window.btoa($('#password').val());
 	
-	$('#send_to_address').val('')
-	$('#amount_to_send').val('')
-	$('#password').val('')
+	setSendingEnabledState(false);
 	
 	sendingStatus = 'Sending bitcoins...';
 	guiUpdate();
@@ -117,6 +115,9 @@ function guiUpdate()
 			$('#sending_status').html(sendingStatusParts[1]);
 			$('#sending_status').css('display', 'block');
 			$('#sending_status').attr('class', 'alert alert-success');
+			
+			setSendingEnabledState(true);
+			blankSendingFields();			
 		}
 		else if (sendingStatus.startsWith('ERROR:::'))
 		{
@@ -124,6 +125,8 @@ function guiUpdate()
 			$('#sending_status').html(sendingStatusParts[1]);
 			$('#sending_status').css('display', 'block');
 			$('#sending_status').attr('class', 'alert alert-danger');
+			
+			setSendingEnabledState(true);
 		}
 		else
 		{
@@ -131,6 +134,33 @@ function guiUpdate()
 			$('#sending_status').css('display', 'block');
 			$('#sending_status').attr('class', 'alert alert-info');
 		}
+	}
+}
+
+function blankSendingFields()
+{
+	$('#send_to_address').val("");
+	$('#amount_to_send').val("");
+	$('#password').val("");
+}
+
+function setSendingEnabledState(setSendingEnabled)
+{
+	if (setSendingEnabled==true)
+	{
+		$('#send_to_address').removeAttr("disabled");
+		$('#amount_to_send').removeAttr("disabled");
+		$('#password').removeAttr("disabled");
+		$('#qr_code_reader_button').removeAttr("disabled");
+		$('#send_bitcoins_button').removeAttr("disabled");
+	}
+	else
+	{
+		$('#send_to_address').attr("disabled", "disabled");
+		$('#amount_to_send').attr("disabled", "disabled");
+		$('#password').attr("disabled", "disabled");
+		$('#qr_code_reader_button').attr("disabled", "disabled");
+		$('#send_bitcoins_button').attr("disabled", "disabled");
 	}
 }
 
