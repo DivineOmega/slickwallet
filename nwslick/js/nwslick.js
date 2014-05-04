@@ -21,7 +21,14 @@ sendCommand('get_main_address');
 $('#fiat_currency_setting').change(function() 
 {
 	localStorage.setItem('fiatCurrency', $('#fiat_currency_setting').val());
-	sendCommand('get_bitcoin_value '+localStorage.fiatCurrency);
+	if (localStorage.fiatCurrency!='')
+	{
+		sendCommand('get_bitcoin_value '+localStorage.fiatCurrency);
+	}
+	else
+	{
+		guiUpdate();
+	}
 });
 
 $('#qr_code_reader_button').click(function() 
@@ -88,7 +95,7 @@ function guiUpdate()
 	
 	if (typeof fiatValue!='undefined')
 	{
-		if (fiatValue>0)
+		if (fiatValue>0 && localStorage.fiatCurrency!='')
 		{
 			$('#fiat_value').html((availableBalance*fiatValue).toFixed(2));
 			$('#fiat_currency').html(localStorage.fiatCurrency);
