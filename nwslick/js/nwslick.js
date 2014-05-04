@@ -200,7 +200,17 @@ function sendCommand(command)
 	{
 		if (data=='jslick:')
 		{
-			if (console!=null)  console.log('Sending command: '+command);
+			if (console!=null)
+			{
+				if (command.startsWith('send_bitcoins'))
+				{
+					console.log('Sending command: (command hidden as it contains password)');
+				}
+				else
+				{
+					console.log('Sending command: '+command);
+				}
+			}
 			client.write(command+'\n');
 		}
 		else if (data=='not_ready')
