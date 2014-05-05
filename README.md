@@ -5,14 +5,8 @@ Slick Wallet is a new bitcoin wallet, focusing on simplicity and user friendline
 
 It is powered by bitcoinj, the same libray that runs Multibit and the Bitcoin Wallet for Android. It also uses web technologies for the graphical user interface.
 
-## Status
+## Download Slick Wallet
 
-Currently in the very early stages. No official release has been made yet.
+**Want to download the latest version of Slick Wallet?**
 
-Interested in testing? Email me at: jordan@hall05.co.uk
-
-## Early screenshots
-
-### Windows 7
-
-<img width=300 src="https://i.imgur.com/xE78GQQ.png"/> <img width=300 src="https://i.imgur.com/10bZ6S8.png"/>
+Go here: https://github.com/DivineOmega/slickwallet/releases
