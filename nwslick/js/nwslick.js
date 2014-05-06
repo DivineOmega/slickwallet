@@ -3,6 +3,7 @@ var satoshisInABitcoin = 100000000;
 if (localStorage.fiatCurrency==undefined) localStorage.setItem('fiatCurrency', 'GBP');
 $('#fiat_currency_setting').val(localStorage.fiatCurrency);
 
+var minFee = 0.0001;
 var availableBalance;
 var estimatedBalance;
 var incomingBitcoins;
@@ -114,6 +115,11 @@ function guiUpdate()
 		$('#main_address_qrcode').attr('title', '');
 	}
 	
+	if (typeof minFee!='undefined')
+	{
+		$('#min_fee').html(minFee);
+	}
+	
 	if(typeof sendingStatus!='undefined' && sendingStatus!='')
 	{
 		if (sendingStatus.startsWith('SUCCESS:::'))
@@ -150,6 +156,37 @@ function blankSendingFields()
 	$('#amount_to_send').val("");
 	$('#password').val("");
 }
+
+$('#amount_to_send').keyup(function()
+{
+	var totalAmountToSend = parseFloat($('#amount_to_send').val())+minFee;
+		
+	if ($('#amount_to_send').val()==="")
+	{
+		$('#amount_to_send').css('border-color', '');
+		$('#amount_alert').html('');
+	}
+	else if ($('#amount_to_send').val()===0)
+	{
+		$('#amount_to_send').css('border-color', '#ff0000');
+		$('#amount_alert').html('You can\'t send zero bitcoins!');
+	}
+	else if ($('#amount_to_send').val()<0)
+	{
+		$('#amount_to_send').css('border-color', '#ff0000');
+		$('#amount_alert').html('You can\'t send negative amounts!');
+	}
+	else if (totalAmountToSend>availableBalance)
+	{
+		$('#amount_to_send').css('border-color', '#ff0000');
+		$('#amount_alert').html('You don\'t have enough bitcoin!');
+	}
+	else
+	{
+		$('#amount_to_send').css('border-color', '');
+		$('#amount_alert').html('');
+	}
+});
 
 function setSendingEnabledState(setSendingEnabled)
 {

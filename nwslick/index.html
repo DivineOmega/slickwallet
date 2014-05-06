@@ -54,8 +54,9 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="send_to_address">Amount (BTC): </label>
+				<label for="send_to_address">Amount (BTC): <span id="amount_alert"></span> </label>
 				<input type="text" class="form-control" id="amount_to_send" placeholder="Type the amount of bitcoin you wish to send"  />
+				<span id="fee_notice">A fee of at least <span id="min_fee"></span> BTC will be added.</span>
 			</div>
 			
 			<div class="form-group">

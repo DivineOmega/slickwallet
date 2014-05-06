@@ -48,6 +48,17 @@ input
 	height: 224px;
 }
 
+#fee_notice
+{
+	font-size: 0.8em;
+}
+
+#amount_alert
+{
+	color: #ff0000;
+	font-size: 0.8em;
+}
+
 img
 {
 	pointer-events: none

@@ -13,6 +13,7 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.InsufficientMoneyException;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.SendRequest;
 import com.google.bitcoin.core.Wallet.SendResult;
@@ -112,6 +113,7 @@ public class Main
 		
 		SendRequest sendRequest = Wallet.SendRequest.to(recipientAddress, amountToSend);
 		sendRequest.aesKey = aesKey;
+		sendRequest.feePerKb = Utils.toNanoCoins("0.0001");
 		SendResult sendResult;
 		
 		try 
