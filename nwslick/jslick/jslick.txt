@@ -1,0 +1,3 @@
+A runnable 'jslick.jar' should be placed in this directory.
+
+It will be started automatically by nwslick.
