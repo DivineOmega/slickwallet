@@ -7,9 +7,18 @@ child = exec('java -jar ./jslick/jslick.jar',
     console.log('stderr: ' + stderr);
     if(error !== null)
     {
-      console.log('exec error: ' + error);
-      alert('Sorry, there has been an error starting Slick Wallet.\n\nDetails: '+error);
-      window.close();
+		if (error.toString().indexOf("Address already in use") > -1)
+		{
+			// jslick already running
+			window.location = 'index.html';
+		}
+		else
+		{
+			// jslick needs to be started
+			console.log('exec error: ' + error);
+			alert('Sorry, there has been an error starting Slick Wallet.\n\nDetails: '+error);
+			window.close();
+		}
     }
 });
 
