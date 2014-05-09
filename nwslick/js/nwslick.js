@@ -154,6 +154,8 @@ function guiUpdate()
 			$('#sending_status').css('display', 'block');
 			$('#sending_status').attr('class', 'alert alert-info');
 		}
+		
+		sendingStatus = '';
 	}
 }
 
