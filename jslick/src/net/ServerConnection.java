@@ -118,9 +118,18 @@ public class ServerConnection implements Runnable
 				
 				for (Transaction tx : transactions) 
 				{
+					BigInteger value = tx.getValue(Main.kit.wallet());
+					boolean sent = value.signum() < 0;
+					
+					Address address;
+					if (sent) address = tx.getOutput(0).getScriptPubKey().getToAddress(Main.params); // To address
+					else address = new Address(Main.params, tx.getInput(0).getScriptSig().getPubKeyHash()); // 'From' address
+					
 					out.print(tx.getUpdateTime());
 					out.print(":::");
-					out.print(tx.getValue(Main.kit.wallet()));
+					out.print(address);
+					out.print(":::");
+					out.print(value);
 					out.print("\r\n");
 				}
 			}
