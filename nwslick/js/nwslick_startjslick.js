@@ -8,8 +8,8 @@ child = exec('./jslick/jslick.jar',
     if(error !== null)
     {
       console.log('exec error: ' + error);
-      alert('Sorry, there has been an error starting the \'jslick\' component of Slick Wallet.\n\nDetails: '+error);
-      Window.close();
+      alert('Sorry, there has been an error starting Slick Wallet.\n\nDetails: '+error);
+      window.close();
     }
 });
 
