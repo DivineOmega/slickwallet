@@ -1,6 +1,6 @@
 
 var exec = require('child_process').exec, child;
-child = exec('./jslick/jslick.jar',
+child = exec('java -jar ./jslick/jslick.jar',
   function (error, stdout, stderr)
   {
     console.log('stdout: ' + stdout);

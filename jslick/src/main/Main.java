@@ -52,7 +52,7 @@ public class Main
 		String filePrefix = "slick";
 		
 		// Start up wallet and ensure we have our first key.
-		kit = new WalletAppKit(params, new File("."), filePrefix) 
+		kit = new WalletAppKit(params, new File(".."+File.separatorChar), filePrefix) 
 		{
 			@Override
 		    protected void onSetupCompleted() 
