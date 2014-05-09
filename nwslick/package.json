@@ -7,9 +7,9 @@
     "icon": "images/slick_wallet_logo.png",
     "toolbar": false,
     "frame": true,
-    "width": 555,
+    "width": 655,
     "height": 565,
-    "min_width": 555,
+    "min_width": 655,
     "min_height": 565
    }
 }
