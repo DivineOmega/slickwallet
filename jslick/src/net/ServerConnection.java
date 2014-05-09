@@ -28,6 +28,7 @@ public class ServerConnection implements Runnable
 		this.socket = socket;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void run()
 	{
 		
