@@ -59,6 +59,11 @@ input
 	font-size: 0.8em;
 }
 
+#transaction_table
+{
+	width: 100%;
+}
+
 img
 {
 	pointer-events: none

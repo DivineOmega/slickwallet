@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.net.Socket;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
@@ -114,7 +115,7 @@ public class ServerConnection implements Runnable
 			}
 			else if(command.equalsIgnoreCase("get_transactions"))
 			{
-				List<Transaction> transactions = Main.kit.wallet().getRecentTransactions(0, false); // 0 = all transactions
+				Set<Transaction> transactions = Main.kit.wallet().getTransactions(false); // 0 = all transactions
 				
 				for (Transaction tx : transactions) 
 				{
@@ -123,7 +124,7 @@ public class ServerConnection implements Runnable
 					
 					Address address;
 					if (sent) address = tx.getOutput(0).getScriptPubKey().getToAddress(Main.params); // To address
-					else address = new Address(Main.params, tx.getInput(0).getScriptSig().getPubKeyHash()); // 'From' address
+					else address = tx.getInput(0).getFromAddress(); // 'From' address
 					
 					out.print(tx.getUpdateTime());
 					out.print(":::");

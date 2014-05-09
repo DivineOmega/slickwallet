@@ -11,13 +11,15 @@ var fiatValue = 0.00;
 var mainAddress;
 var qrcode = new QRCode('main_address_qrcode');
 var sendingStatus;
+var transactionTable;
 
 var gui = require('nw.gui');
 var win = gui.Window.get();
 
+sendCommand('get_main_address');
 loopUpdateBalance();
 loopUpdateFiatValue();
-sendCommand('get_main_address');
+loopUpdateTransactions();
 
 $('#fiat_currency_setting').change(function() 
 {
@@ -120,6 +122,11 @@ function guiUpdate()
 		$('#min_fee').html(minFee);
 	}
 	
+	if (typeof transactionTable!='undefined')
+	{
+		$('#transaction_table').html(transactionTable);
+	}
+	
 	if(typeof sendingStatus!='undefined' && sendingStatus!='')
 	{
 		if (sendingStatus.startsWith('SUCCESS:::'))
@@ -215,6 +222,12 @@ function loopUpdateBalance()
 	setTimeout(function(){ loopUpdateBalance(); }, 2500);
 }
 
+function loopUpdateTransactions()
+{
+	sendCommand('get_transactions');
+	setTimeout(function(){ loopUpdateTransactions(); }, 2500);
+}
+
 function loopUpdateFiatValue()
 {
 	sendCommand('get_bitcoin_value '+localStorage.fiatCurrency);
@@ -292,6 +305,10 @@ function sendCommand(command)
 			{
 				sendingStatus = data.toString();
 			}
+			else if (command=='get_transactions')
+			{
+				transactionTable = createTransactionTable(data.toString());
+			}
 			
 			guiUpdate();
 		}
@@ -301,6 +318,49 @@ function sendCommand(command)
 	{
 		if (console!=null) console.log('Connection closed');
 	});
+}
+
+function createTransactionTable(transactionData)
+{
+	var transactionTable = '';
+	
+	transactionTable += '<tr>';
+	transactionTable += '<th>Date time</th>';
+	transactionTable += '<th>Bitcoin address</th>';
+	transactionTable += '<th>BTC</th>';
+	transactionTable += '</tr>';
+	
+	txs = transactionData.split('\r\n');
+	
+	for (var i = 0; i < txs.length; i++) 
+	{
+		transactionTable += '<tr>';
+		
+		txDetails = txs[i].split(':::');
+		
+		if (txDetails.length==3)
+		{
+			for (var j = 0; j < txDetails.length; j++) 
+			{			
+				transactionTable += '<td>';
+				
+				if (j==2)
+				{
+					transactionTable += (txDetails[j]/satoshisInABitcoin);
+				}
+				else
+				{
+					transactionTable += txDetails[j];	
+				}
+				
+				transactionTable += '</td>';
+			}
+		}
+		
+		transactionTable += '</tr>';
+	}
+	
+	return transactionTable;
 }
 
 if (typeof String.prototype.startsWith != 'function') {
