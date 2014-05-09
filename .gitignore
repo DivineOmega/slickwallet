@@ -4,4 +4,5 @@
 *.classpath
 *.project
 *.tmp
+*.jar
 nwslick/images/Thumbs.db
