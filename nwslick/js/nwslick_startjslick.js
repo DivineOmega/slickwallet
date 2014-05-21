@@ -3,7 +3,7 @@ jslickCommand = 'cd ./jslick/ && java -jar jslick.jar';
 
 var isWin = /^win/.test(process.platform);
 
-if (isWin) jslickCommand = '.\\jslick\\jslick.exe';
+if (isWin) jslickCommand = 'cd .\\jslick\\ & .\\jslick.exe';
 
 var exec = require('child_process').exec, child;
 child = exec(jslickCommand,
