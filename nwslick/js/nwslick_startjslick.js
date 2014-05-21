@@ -1,6 +1,12 @@
 
+jslickCommand = 'cd ./jslick/ && java -jar jslick.jar';
+
+var isWin = /^win/.test(process.platform);
+
+if (isWin) jslickCommand = '.\\jslick\\jslick.exe';
+
 var exec = require('child_process').exec, child;
-child = exec('java -jar ./jslick/jslick.jar',
+child = exec(jslickCommand,
   function (error, stdout, stderr)
   {
     console.log('stdout: ' + stdout);
@@ -22,4 +28,4 @@ child = exec('java -jar ./jslick/jslick.jar',
     }
 });
 
-setTimeout(function(){ window.location = 'index.html'; }, 3000);
+setTimeout(function(){ window.location = 'index.html'; }, 6000);

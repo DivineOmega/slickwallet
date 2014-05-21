@@ -1,3 +1,5 @@
 A runnable 'jslick.jar' should be placed in this directory.
 
-It will be started automatically by nwslick.
+A 'jslick.exe' should also be created using launch4j and placed in this directory.
+
+The appropriate file will be started automatically by nwslick.
