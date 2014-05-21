@@ -8,3 +8,4 @@
 *.exe
 nwslick/images/Thumbs.db
 nwslick/images/apps/Thumbs.db
+.goutputstream-*
