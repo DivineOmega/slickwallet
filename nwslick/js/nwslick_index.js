@@ -16,10 +16,19 @@ var transactionTable;
 var gui = require('nw.gui');
 var win = gui.Window.get();
 
+var fs = require('fs');
+
+if (typeof String.prototype.startsWith != 'function') {
+  String.prototype.startsWith = function (str){
+    return this.slice(0, str.length) == str;
+  };
+}
+
 sendCommand('get_main_address');
 loopUpdateBalance();
 loopUpdateFiatValue();
 loopUpdateTransactions();
+loadAndShowApps();
 
 $('#fiat_currency_setting').change(function() 
 {
@@ -284,7 +293,10 @@ function sendCommand(command)
 		}
 		else
 		{
-			console.log('Response received: ' + data);
+			if (console!=null)
+			{
+				console.log('Response received: ' + data);
+			}
 			client.destroy();
 			
 			if (command=='get_available_balance')
@@ -365,9 +377,45 @@ function createTransactionTable(transactionData)
 	return transactionTable;
 }
 
-if (typeof String.prototype.startsWith != 'function') {
-  String.prototype.startsWith = function (str){
-    return this.slice(0, str.length) == str;
-  };
+function loadAndShowApps()
+{
+	var appDirRoot = "./apps"
+	var appDirs = fs.readdirSync(appDirRoot);
+	
+	var nameFile = 'name.txt';
+	var descriptionFile = 'description.txt';
+	var iconFile = 'icon.png';
+	var indexFile = 'index.html';
+	
+	var totalAppDirs = appDirs.length;
+	for (var i = 0; i < totalAppDirs; i++) 
+	{
+		var appDir = appDirRoot+'/'+appDirs[i];
+				
+		var appName = fs.readFileSync(appDir+'/'+nameFile, 'utf8');
+		var appDescription = fs.readFileSync(appDir+'/'+descriptionFile, 'utf8');
+				
+		var appTableItem = '';
+		
+		appTableItem += '<tr>';
+		appTableItem += '<td>';
+		appTableItem += '<div id="app_icon">';
+		appTableItem += '<img src="'+appDir+'/'+iconFile+'" />';
+		appTableItem += '</div>';
+		appTableItem += '</td>';
+		appTableItem += '<td>';
+		appTableItem += '<div id="app_name">';
+		appTableItem += appName;
+		appTableItem += '</div>';
+		appTableItem += '<div id="app_description">';
+		appTableItem += appDescription;
+		appTableItem += '</div>';
+		appTableItem += '<button class="btn btn-default" onclick="window.open(\''+appDir+'/'+indexFile+'\', \'_blank\');">Launch</button>';
+		appTableItem += '</td>';
+		appTableItem += '</tr>';
+						
+		$('#apps_table').append(appTableItem);
+	}
 }
+
 

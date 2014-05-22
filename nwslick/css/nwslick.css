@@ -68,3 +68,20 @@ img
 {
 	pointer-events: none
 }
+
+#app_icon img
+{
+	width: 128px;
+	height: 128px;
+}
+
+#app_name
+{
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+#app_description
+{
+	margin-bottom: 10px;
+}
