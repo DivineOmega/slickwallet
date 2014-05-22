@@ -5,9 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Donate to Slick Wallet!</title>
+    <style>
+	body
+	{
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		font-size: 14px;
+		margin: 20px;
+		border: dotted 1px #ccc;
+		padding: 20px;
+	}
+	
+	#center-align
+	{
+		text-align: center;
+	}
+	
+	.bold
+	{
+		font-weight: bold;
+	}
+	
+	.bordered
+	{
+		margin: 20px;
+		border: dashed 1px #ccc;
+		padding: 20px;
+	}
+    </style>
+    <script>
+		var gui = require('nw.gui');
+		var clipboard = gui.Clipboard.get();
+    </script>
   </head>
   <body>
-	<h1>Do you like Slick Wallet?</h1>
-	<p>If you want to see more awesome features.</p>
+	<div id="center-align">
+		<img src="icon.png"/>
+		<h1>Do you like Slick Wallet?</h1>
+		<p>If you want to see more awesome features, please donate to us.</p>
+		<p class="bold bordered">
+			Click the Bitcoin address to copy it!<br/>
+			<br/>
+			<a href="#" onclick="clipboard.set('1DonationBitcoinAddressGoesHere', 'text'); alert('The donation address has been copied to your clipboard.\n\nThank you for considering a donation!');">
+				1DonationBitcoinAddressGoesHere
+			</a>
+		</p>
+	</div>
   </body>
 </html>
