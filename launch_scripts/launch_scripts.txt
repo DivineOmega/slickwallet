@@ -1,0 +1,13 @@
+These scripts launch nwslick using the platform specific version of node-webkit.
+
+The following directory structure should be used with these launch scripts, when packaging Slick Wallet releases.
+
+Slick Wallet [x.x]
+	Start Slick Wallet (Linux).sh
+	Start Slick Wallet (Mac OSX).command
+	Start Slick Wallet (Windows).bat
+	slick_wallet
+		node-webkit-v0.9.2-linux-x64
+		node-webkit-v0.9.2-osx-ia32
+		node-webkit-v0.9.2-win-ia32
+		nwslick
