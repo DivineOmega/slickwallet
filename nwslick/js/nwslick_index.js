@@ -15,6 +15,7 @@ var transactionTable;
 
 var gui = require('nw.gui');
 var win = gui.Window.get();
+var clipboard = gui.Clipboard.get();
 
 var fs = require('fs');
 
@@ -41,6 +42,11 @@ $('#fiat_currency_setting').change(function()
 	{
 		guiUpdate();
 	}
+});
+
+$('#paste_address_button').click(function() 
+{
+	$('#send_to_address').val(clipboard.get('text'));
 });
 
 $('#qr_code_reader_button').click(function() 
