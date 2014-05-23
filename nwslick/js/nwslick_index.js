@@ -397,7 +397,9 @@ function loadAndShowApps()
 	for (var i = 0; i < totalAppDirs; i++) 
 	{
 		var appDir = appDirRoot+'/'+appDirs[i];
-				
+		
+		if (!fs.lstatSync(appDir).isDirectory()) continue;
+		
 		var appName = fs.readFileSync(appDir+'/'+nameFile, 'utf8');
 		var appDescription = fs.readFileSync(appDir+'/'+descriptionFile, 'utf8');
 				
